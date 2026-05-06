@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VulneraX Report — https://example.com</title>
+<style>
+  :root {
+    --bg: #0d0f14; --surface: #151820; --surface2: #1c2030;
+    --border: #2a2f40; --accent: #7c3aed; --accent2: #00ff9d;
+    --text: #e2e8f0; --muted: #64748b; --font: "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; }
+  .header {
+    background: linear-gradient(135deg, #0d0f14 0%, #1a0a2e 50%, #0d1117 100%);
+    border-bottom: 1px solid var(--border); padding: 2.5rem 3rem; position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ""; position: absolute; top: -60px; right: -60px;
+    width: 300px; height: 300px; background: radial-gradient(circle, #7c3aed22 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #c4b5fd, #7c3aed, #00ff9d);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header .meta { color: var(--muted); margin-top: .4rem; font-size: .9rem; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 2rem 2.5rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section-title {
+    font-size: 1.1rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+    color: var(--accent2); margin-bottom: 1rem; padding-bottom: .5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  /* Stat cards */
+  .stats-grid { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.2rem 1.5rem; flex: 1; min-width: 120px; text-align: center;
+  }
+  .stat-num { font-size: 2rem; font-weight: 800; }
+  .stat-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-top: .2rem; }
+  /* Progress bar */
+  .sev-bar-wrap { height: 10px; background: var(--surface2); border-radius: 6px; overflow: hidden; }
+  /* Executive summary */
+  .summary-box {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.5rem; font-size: .95rem; color: #cbd5e1; line-height: 1.8;
+  }
+  /* Table */
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    background: var(--surface2); text-align: left; padding: .8rem 1rem;
+    font-size: .75rem; text-transform: uppercase; letter-spacing: .6px;
+    color: var(--muted); font-weight: 600; border-bottom: 2px solid var(--border);
+  }
+  td { padding: .75rem 1rem; border-bottom: 1px solid var(--border); font-size: .88rem; }
+  .vuln-row { cursor: pointer; transition: background .15s; }
+  .vuln-row:hover { background: var(--surface2); }
+  .detail-box {
+    background: var(--surface2); border-radius: 8px; padding: 1.5rem;
+    margin: .5rem 0; border-left: 3px solid var(--accent);
+  }
+  .detail-box h4 { color: var(--accent2); font-size: .8rem; text-transform: uppercase;
+    letter-spacing: .6px; margin-bottom: .5rem; margin-top: 1rem; }
+  .detail-box h4:first-child { margin-top: 0; }
+  .detail-box p { color: #94a3b8; font-size: .9rem; }
+  .remediation { color: #86efac !important; }
+  .meta-table td, .meta-table th { padding: .3rem .6rem; font-size: .82rem; border: none; }
+  .meta-table th { color: var(--muted); background: transparent; text-transform: none; }
+  code { background: #1e293b; color: #7c3aed; padding: 1px 5px; border-radius: 3px; font-size: .8rem; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 2rem; border-top: 1px solid var(--border); margin-top: 3rem; }
+  @media (max-width: 768px) { .container { padding: 1rem; } .stats-grid { gap: .5rem; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚡ VulneraX Security Report</h1>
+  <div class="meta">
+    Target: <strong>https://example.com</strong> &nbsp;|&nbsp;
+    Scan ID: <code style="-webkit-text-fill-color:#7c3aed">3f4cd6ec</code> &nbsp;|&nbsp;
+    Scan Type: FULL &nbsp;|&nbsp;
+    Started: 2026-05-01T10:00:00 &nbsp;|&nbsp;
+    Completed: 2026-05-01T10:18:42
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-title">Severity Distribution</div>
+    <div class="stats-grid">
+      
+        <div class="stat-card" style="border-top:3px solid #FF3366">
+          <div class="stat-num" style="color:#FF3366">4</div>
+          <div class="stat-label">CRITICAL</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid #FF6B35">
+          <div class="stat-num" style="color:#FF6B35">2</div>
+          <div class="stat-label">HIGH</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid #FFD700">
+          <div class="stat-num" style="color:#FFD700">4</div>
+          <div class="stat-label">MEDIUM</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid #00CED1">
+          <div class="stat-num" style="color:#00CED1">1</div>
+          <div class="stat-label">LOW</div>
+        </div>
+        <div class="stat-card" style="border-top:3px solid #8A8A8A">
+          <div class="stat-num" style="color:#8A8A8A">1</div>
+          <div class="stat-label">INFO</div>
+        </div>
+      <div class="stat-card" style="border-top:3px solid #7c3aed">
+        <div class="stat-num" style="color:#7c3aed">12</div>
+        <div class="stat-label">Total</div>
+      </div>
+    </div>
+    <div class="sev-bar-wrap"><div style="width:33.3%;background:#FF3366;height:100%;display:inline-block;transition:width .4s" title="critical: 4"></div><div style="width:16.7%;background:#FF6B35;height:100%;display:inline-block;transition:width .4s" title="high: 2"></div><div style="width:33.3%;background:#FFD700;height:100%;display:inline-block;transition:width .4s" title="medium: 4"></div><div style="width:8.3%;background:#00CED1;height:100%;display:inline-block;transition:width .4s" title="low: 1"></div><div style="width:8.3%;background:#8A8A8A;height:100%;display:inline-block;transition:width .4s" title="info: 1"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Executive Summary</div>
+    <div class="summary-box">An automated vulnerability assessment was conducted against https://example.com<br>using the VulneraX framework. The scan employed nmap, zap, nikto, nuclei, header_security and identified a total<br>of 12 unique security finding(s).<br><br>Overall Risk Level: Critical<br><br>Findings breakdown:<br>  • Critical : 4<br>  • High     : 2<br>  • Medium   : 4<br>  • Low      : 1<br><br>Immediate remediation is strongly recommended for all Critical and High severity findings.<br>Multi-tool confirmation increased confidence in 3 finding(s).</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Vulnerability Findings (12)</div>
+    <div style="margin-bottom:.8rem;font-size:.85rem;color:var(--muted)">
+      Click any row to expand details. ⚡ CONFIRMED = detected by multiple tools.
+    </div>
+    <div class="table-wrap">
+      <table id="vuln-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Name</th><th>Severity</th><th>CVSS</th>
+            <th>Source</th><th>CVE</th><th>URL</th><th>Port</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+    <tr class="vuln-row" onclick="toggleDetail('detail-1')">
+      <td>1</td>
+      <td>Outdated Apache Version (2.4.49) <span style="background:#00ff9d22;color:#00ff9d;border:1px solid #00ff9d;padding:1px 6px;border-radius:3px;font-size:0.68rem">⚡ CONFIRMED</span></td>
+      <td><span style="background:#FF3366;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">critical</span></td>
+      <td>10.0</td>
+      <td>NIKTO</td>
+      <td>CVE-2021-41773</td>
+      <td>https://example.com</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-1" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>Apache HTTP Server 2.4.49 is outdated and vulnerable to CVE-2021-41773 (path traversal / RCE).</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Upgrade Apache to version 2.4.51 or later immediately. This vulnerability has public exploits available.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>nuclei</td></tr>
+            <tr><th>References</th><td>https://nvd.nist.gov/vuln/detail/CVE-2021-41773</td></tr>
+            <tr><th>Tags</th><td>outdated-software, rce, apache</td></tr>
+            <tr><th>Finding ID</th><td><code>7f73c88e-1e5f-4ea7-a92e-fced17e792ba</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-2')">
+      <td>2</td>
+      <td>Open Port 23/TCP (Telnet)</td>
+      <td><span style="background:#FF3366;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">critical</span></td>
+      <td>9.8</td>
+      <td>NMAP</td>
+      <td>—</td>
+      <td>192.168.1.100</td>
+      <td>23</td>
+    </tr>
+    <tr id="detail-2" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>Telnet service is running on port 23. All communication including credentials is transmitted in plaintext.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Disable Telnet immediately and replace with SSH (port 22) with key-based authentication.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>port-scan, plaintext-protocol</td></tr>
+            <tr><th>Finding ID</th><td><code>8c729377-1877-414e-9102-e55a2f4888e2</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-3')">
+      <td>3</td>
+      <td>Open Port 21/TCP (FTP) <span style="background:#00ff9d22;color:#00ff9d;border:1px solid #00ff9d;padding:1px 6px;border-radius:3px;font-size:0.68rem">⚡ CONFIRMED</span></td>
+      <td><span style="background:#FF3366;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">critical</span></td>
+      <td>9.6</td>
+      <td>NMAP</td>
+      <td>—</td>
+      <td>192.168.1.100</td>
+      <td>21</td>
+    </tr>
+    <tr id="detail-3" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>FTP service detected on port 21. FTP transmits credentials and data in cleartext.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Disable FTP and replace with SFTP or SCP. If FTP is required, enforce FTPS and restrict access by IP.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>nuclei</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>port-scan, service-detection</td></tr>
+            <tr><th>Finding ID</th><td><code>a3283e6f-b737-4fbb-87bb-0fb7fd2e428f</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-4')">
+      <td>4</td>
+      <td>SQL Injection</td>
+      <td><span style="background:#FF3366;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">critical</span></td>
+      <td>9.3</td>
+      <td>ZAP</td>
+      <td>CVE-2023-67890</td>
+      <td>https://example.com/product?id=1</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-4" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>SQL injection vulnerability detected in the &#x27;id&#x27; parameter. An attacker could extract, modify, or delete database content.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Replace all string-concatenated SQL with parameterised queries or prepared statements. Apply least-privilege DB accounts.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>https://owasp.org/www-community/attacks/SQL_Injection</td></tr>
+            <tr><th>Tags</th><td>sqli, injection, owasp-a03</td></tr>
+            <tr><th>Finding ID</th><td><code>360772eb-a8ca-435a-ac78-a51aa314d69a</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-5')">
+      <td>5</td>
+      <td>Cross-Site Scripting (Reflected) <span style="background:#00ff9d22;color:#00ff9d;border:1px solid #00ff9d;padding:1px 6px;border-radius:3px;font-size:0.68rem">⚡ CONFIRMED</span></td>
+      <td><span style="background:#FF6B35;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">high</span></td>
+      <td>8.9</td>
+      <td>ZAP</td>
+      <td>CVE-2023-12345</td>
+      <td>https://example.com/search?q=&lt;script&gt;</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-5" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>Reflected XSS was detected in the &#x27;search&#x27; parameter. User-supplied input is reflected in the response without proper encoding.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Implement context-sensitive output encoding for all user-controlled data. Apply a Content Security Policy.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>nikto</td></tr>
+            <tr><th>References</th><td>https://owasp.org/www-community/attacks/xss/</td></tr>
+            <tr><th>Tags</th><td>xss, injection, owasp-a03</td></tr>
+            <tr><th>Finding ID</th><td><code>dbb4b1a4-1138-4104-82c1-67341730e3e1</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-6')">
+      <td>6</td>
+      <td>Exposed .git Directory</td>
+      <td><span style="background:#FF6B35;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">high</span></td>
+      <td>7.5</td>
+      <td>NUCLEI</td>
+      <td>—</td>
+      <td>https://example.com/.git/config</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-6" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>The .git directory is publicly accessible, potentially exposing source code, credentials and deployment secrets.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Block access to .git at the web server level. Rotate any exposed credentials immediately.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>https://github.com/internetwache/GitTools</td></tr>
+            <tr><th>Tags</th><td>misconfiguration, secret-exposure, git</td></tr>
+            <tr><th>Finding ID</th><td><code>be4f503e-bace-4a92-b527-fd15fb6b8003</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-7')">
+      <td>7</td>
+      <td>Missing Security Header: Content-Security-Policy</td>
+      <td><span style="background:#FFD700;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">medium</span></td>
+      <td>5.5</td>
+      <td>HEADER_SECURITY</td>
+      <td>—</td>
+      <td>https://example.com</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-7" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>No CSP header found. Without a Content Security Policy, the application has no XSS mitigation at the browser level.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Define and deploy a Content-Security-Policy header. Start with &#x27;default-src https:&#x27; and tighten iteratively.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>headers, xss, owasp</td></tr>
+            <tr><th>Finding ID</th><td><code>ae09b323-2a76-4c8c-ad38-f2ff96c57263</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-8')">
+      <td>8</td>
+      <td>Missing Security Header: Strict-Transport-Security</td>
+      <td><span style="background:#FFD700;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">medium</span></td>
+      <td>5.3</td>
+      <td>HEADER_SECURITY</td>
+      <td>—</td>
+      <td>https://example.com</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-8" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>HSTS header is not configured. The site is vulnerable to protocol downgrade attacks and SSL stripping.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Add: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>headers, misconfiguration, owasp</td></tr>
+            <tr><th>Finding ID</th><td><code>f3ba11d8-2396-4c4c-9159-89963b96d91a</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-9')">
+      <td>9</td>
+      <td>Directory Listing Enabled</td>
+      <td><span style="background:#FFD700;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">medium</span></td>
+      <td>5.0</td>
+      <td>NIKTO</td>
+      <td>—</td>
+      <td>https://example.com/uploads/</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-9" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>Directory listing is enabled on the web server, exposing internal file structure to unauthenticated users.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Disable directory listing: add &#x27;Options -Indexes&#x27; in Apache or &#x27;autoindex off;&#x27; in Nginx.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>misconfiguration, information-disclosure</td></tr>
+            <tr><th>Finding ID</th><td><code>867521dd-ed4e-4e8b-80e9-4c7d3b96ec41</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-10')">
+      <td>10</td>
+      <td>Cookie Without HttpOnly Flag</td>
+      <td><span style="background:#FFD700;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">medium</span></td>
+      <td>4.3</td>
+      <td>ZAP</td>
+      <td>—</td>
+      <td>https://example.com/login</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-10" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>Session cookie &#x27;PHPSESSID&#x27; is set without the HttpOnly flag, making it accessible to JavaScript and vulnerable to XSS-based session hijacking.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Add HttpOnly; Secure; SameSite=Strict to all session cookie Set-Cookie headers.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>cookie, session-management</td></tr>
+            <tr><th>Finding ID</th><td><code>b32007d2-0a56-4e36-8cb7-a0b224f215fa</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-11')">
+      <td>11</td>
+      <td>Server Version Disclosure via Server Header</td>
+      <td><span style="background:#00CED1;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">low</span></td>
+      <td>2.6</td>
+      <td>HEADER_SECURITY</td>
+      <td>—</td>
+      <td>https://example.com</td>
+      <td>—</td>
+    </tr>
+    <tr id="detail-11" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>The Server response header reveals: &#x27;Apache/2.4.49 (Ubuntu)&#x27;. Version disclosure aids targeted attacks.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Configure &#x27;ServerTokens Prod&#x27; in Apache or &#x27;server_tokens off;&#x27; in Nginx to suppress version info.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>headers, disclosure, fingerprinting</td></tr>
+            <tr><th>Finding ID</th><td><code>5958190a-0aeb-4919-ab2a-f2868a0b7766</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="vuln-row" onclick="toggleDetail('detail-12')">
+      <td>12</td>
+      <td>Open Port 443/TCP (HTTPS)</td>
+      <td><span style="background:#8A8A8A;color:#0d0d0d;padding:2px 10px;border-radius:4px;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px">info</span></td>
+      <td>0.0</td>
+      <td>NMAP</td>
+      <td>—</td>
+      <td>192.168.1.100</td>
+      <td>443</td>
+    </tr>
+    <tr id="detail-12" class="detail-row" style="display:none">
+      <td colspan="8">
+        <div class="detail-box">
+          <h4>Description</h4>
+          <p>HTTPS service running on port 443. Standard expected port — verify TLS configuration.</p>
+          <h4>Remediation</h4>
+          <p class="remediation">Ensure TLS 1.2 or 1.3 only, disable weak cipher suites, and enable HSTS.</p>
+          <table class="meta-table">
+            <tr><th>Confirmed by</th><td>—</td></tr>
+            <tr><th>References</th><td>—</td></tr>
+            <tr><th>Tags</th><td>port-scan</td></tr>
+            <tr><th>Finding ID</th><td><code>7a07c927-fccb-46a3-972b-4c013734551b</code></td></tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section"><div class="section-title">Scan Errors</div><div class="summary-box" style="border-color:#ff336633"><ul><li>ZAP active scan timed out — partial results collected.</li></ul></div></div>
+
+</div>
+
+<div class="footer">
+  Generated by <strong>VulneraX</strong> — Intelligent Automated Vulnerability Assessment Framework<br>
+  <span style="color:#4a5568">For authorised penetration testing use only.</span>
+</div>
+
+<script>
+  function toggleDetail(id) {
+    const el = document.getElementById(id);
+    el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+# VulneraX — Central Configuration
+# Edit this file to adjust tool behaviour, timeouts, and paths.
+
+# ─────────────────────────────────────────
+#  Tool Integration Settings
+# ─────────────────────────────────────────
+tools:
+  nmap:
+    binary: "nmap"
+    timeout: 120          # seconds
+    flags: "-sV -sC"      # default service/script scan
+
+  nikto:
+    binary: "nikto"
+    timeout: 60
+    maxtime: 30           # nikto -maxtime value
+
+  nuclei:
+    binary: "nuclei"
+    timeout: 180
+    flags: "-silent"
+
+  zap:
+    api_key: "vq2f9nqd5kf013hb9idd669cc5"
+    host: "http://localhost"
+    port: 8081
+    timeout: 300
+
+# ─────────────────────────────────────────
+#  Correlation Engine
+# ─────────────────────────────────────────
+correlation:
+  boost_score: 1.5        # CVSS bonus for multi-tool confirmation
+  similarity_threshold: 0.75  # Jaccard similarity for name matching
+
+# ─────────────────────────────────────────
+#  Risk Engine
+# ─────────────────────────────────────────
+risk:
+  cvss_bands:
+    critical: 9.0
+    high: 7.0
+    medium: 4.0
+    low: 0.1
+
+# ─────────────────────────────────────────
+#  Reporting
+# ─────────────────────────────────────────
+reports:
+  output_dir: "scan_results"
+  formats:
+    - html
+    - json
+    - csv
+
+# ─────────────────────────────────────────
+#  API Server
+# ─────────────────────────────────────────
+api:
+  host: "0.0.0.0"
+  port: 8000
+  reload: false
+
+# ─────────────────────────────────────────
+#  Logging
+# ─────────────────────────────────────────
+logging:
+  level: "DEBUG"          # DEBUG | INFO | WARNING | ERROR
+  log_file: "vulnerax.log"
+
+# ─────────────────────────────────────────
+#  Plugin System
+# ─────────────────────────────────────────
+plugins:
+  directory: "plugins"
+  enabled: true

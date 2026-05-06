@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Scan output
+scan_results/
+vulnerax.log
+*.log
+
+# Temporary scanner output (created during scans)
+nuclei_output.json
+nikto_output.txt
+nmap_output.xml
+*_output.*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.orig
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Secrets / keys — NEVER commit API keys
+*.env
+.env
+.env.*
+secrets.yaml
+
+# Docker
+.dockerignore
+
+# Distribution
+*.tar.gz
+*.zip
