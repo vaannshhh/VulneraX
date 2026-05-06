@@ -1,4 +1,4 @@
-# ⚡ KUSHZNDR / VulneraX
+# VulneraX
 
 **Intelligent Automated Vulnerability Assessment Framework**
 
@@ -10,7 +10,7 @@
 
 ---
 
-## 🎯 What is this?
+## What is this?
 
 This is a production-ready, **open-source** cybersecurity framework built for everyone from beginners to advanced penetration testers. It requires **zero setup** to run its base scans!
 
@@ -23,7 +23,7 @@ This is a production-ready, **open-source** cybersecurity framework built for ev
 
 ---
 
-## 🚀 How It Works (Quick Start)
+## How It Works (Quick Start)
 
 ### 1. Install Requirements
 Ensure you have Python installed. Then, clone the repository and install the required Python libraries from `requirements.txt`:
@@ -48,14 +48,14 @@ python main.py scan https://example.com --full
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 All Python dependencies are listed in `requirements.txt`. Simply install them using `pip install -r requirements.txt`.
 External tools like Nmap, Nuclei, or ZAP are **completely optional** and only required if you explicitly use the `--full` mode. The default mode runs natively on pure Python!
 
 ---
 
-## 🔌 Writing a Custom Plugin
+## Writing a Custom Plugin
 
 1. Create a Python script in `plugins/my_scanner.py`
 2. Subclass `PluginBase` and implement the `run()` function
@@ -65,7 +65,5 @@ See `plugins/example_plugin.py` for a fully working example.
 
 ---
 
-## 🤝 Open Source
-This project is fully Open Source. Feel free to fork, modify, and submit Pull Requests!
 
 
